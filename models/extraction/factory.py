@@ -136,12 +136,17 @@ class StrategyFactory:
 
         elif "api" in mode_lower:
             api_key = kwargs.get("api_key")
+            provider = kwargs.get("provider", "gemini").lower()
+            model_name = kwargs.get("model_name")
+            
             if not api_key:
-                raise ValueError(
-                    "API key is required for API mode. "
-                    "Please enter your Gemini API key in the sidebar."
-                )
-            return APIStrategy(api_key=api_key)
+                raise ValueError(f"API key is required for {provider.title()} API mode.")
+                
+            if provider == "groq":
+                from models.extraction.groq_strategy import GroqStrategy
+                return GroqStrategy(api_key=api_key, model_name=model_name or "meta-llama/llama-4-scout-17b-16e-instruct")
+            else:
+                return APIStrategy(api_key=api_key, model_name=model_name or config.GEMINI_MODEL)
 
         elif "local" in mode_lower or "model" in mode_lower:
             if not config.ENABLE_LOCAL_MODEL:

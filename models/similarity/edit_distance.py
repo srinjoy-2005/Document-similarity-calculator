@@ -46,7 +46,7 @@ class EditDistanceSimilarity(SimilarityMetric):
         Returns:
             Similarity score between 0.0 and 1.0.
         """
-        import Levenshtein
+        import difflib
 
         # Normalize: lowercase and strip extra whitespace
         t1 = " ".join(text1.lower().split())
@@ -55,10 +55,4 @@ class EditDistanceSimilarity(SimilarityMetric):
         if not t1 and not t2:
             return 1.0
 
-        distance = Levenshtein.distance(t1, t2)
-        max_len = max(len(t1), len(t2))
-
-        if max_len == 0:
-            return 1.0
-
-        return 1.0 - (distance / max_len)
+        return difflib.SequenceMatcher(None, t1, t2).ratio()

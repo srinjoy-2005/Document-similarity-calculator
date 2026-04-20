@@ -27,12 +27,13 @@ class APIStrategy(ExtractionStrategy):
     prompt and aggregates the results.
     """
 
-    def __init__(self, api_key: str):
+    def __init__(self, api_key: str, model_name: str = config.GEMINI_MODEL):
         """
         Initialize the API strategy with a Gemini API key.
 
         Args:
             api_key: Google Gemini API key for authentication.
+            model_name: The Gemini model to use.
 
         Raises:
             ValueError: If api_key is empty or None.
@@ -40,6 +41,7 @@ class APIStrategy(ExtractionStrategy):
         if not api_key or not api_key.strip():
             raise ValueError("Gemini API key is required for API mode.")
         self._api_key = api_key
+        self._model_name = model_name
         self._model = None  # Lazy-loaded
 
     @property
@@ -51,7 +53,7 @@ class APIStrategy(ExtractionStrategy):
         if self._model is None:
             import google.generativeai as genai
             genai.configure(api_key=self._api_key)
-            self._model = genai.GenerativeModel(config.GEMINI_MODEL)
+            self._model = genai.GenerativeModel(self._model_name)
         return self._model
 
     def _image_to_base64(self, image: Image.Image) -> str:

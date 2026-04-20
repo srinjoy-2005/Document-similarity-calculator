@@ -29,7 +29,7 @@ ARENA_SUPPORTED_EXTENSIONS = {".jpg", ".jpeg", ".png", ".bmp", ".tiff", ".tif"}
 # ──────────────────────────────────────────────
 # Feature Flags
 # ──────────────────────────────────────────────
-ENABLE_LOCAL_MODEL = True  # Toggle Mode 3 (TrOCR) on/off
+ENABLE_LOCAL_MODEL = False  # Toggle Mode 3 (TrOCR) on/off
 ENABLE_PLUGINS = True      # Toggle BYOM plugin discovery
 
 # ──────────────────────────────────────────────
