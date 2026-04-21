@@ -10,6 +10,9 @@ venv.bak/
 # Dataset
 test_data
 
+# Tar files
+*.tar
+
 
 # Byte-compiled / optimized / DLL files
 __pycache__/
