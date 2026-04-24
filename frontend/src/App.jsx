@@ -57,7 +57,7 @@ function App() {
   const fetchHistory = async (view) => {
     setIsLoadingHistory(true);
     try {
-      const res = await fetch(`http://localhost:8000/api/history?view=${view}`);
+      const res = await fetch(`/api/history?view=${view}`);
       const data = await res.json();
       setHistoryRuns(data.runs || []);
     } catch(e) {
@@ -118,7 +118,7 @@ function App() {
 
     try {
       // Using fetch to read SSE stream
-      const response = await fetch('http://localhost:8000/api/analyze/stream', {
+      const response = await fetch('/api/analyze/stream', {
         method: 'POST',
         body: formData
       });
@@ -194,7 +194,7 @@ function App() {
     formData.append('api_keys', JSON.stringify(apiKeys));
 
     try {
-      const response = await fetch('http://localhost:8000/api/arena/stream', {
+      const response = await fetch('/api/arena/stream', {
         method: 'POST',
         body: formData
       });
@@ -589,7 +589,7 @@ function App() {
                                   scores: results.scores,
                                   metadata: { provider: mode.includes('API') ? provider : null, model: mode.includes('API') ? apiModel : null }
                                 };
-                                const res = await fetch('http://localhost:8000/api/history/save', {
+                                const res = await fetch('/api/history/save', {
                                   method: 'POST',
                                   headers: { 'Content-Type': 'application/json' },
                                   body: JSON.stringify(payload)
@@ -786,7 +786,7 @@ function App() {
                                 "total_time": row['Total Time (s)']
                               }
                             };
-                            const res = await fetch('http://localhost:8000/api/history/save', {
+                            const res = await fetch('/api/history/save', {
                               method: 'POST',
                               headers: { 'Content-Type': 'application/json' },
                               body: JSON.stringify(payload)
